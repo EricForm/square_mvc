@@ -5,13 +5,23 @@ namespace SquareMvc\Foundation;
 class App
 {
 
+
+
     /**
      * App constructor.
-     * Initialisation des composants (BDD, routes, sessions, PHP dotenv...)
+     * Init components (BDD, routes, sessions, PHP dotenv...)
      */
     public function __construct()
     {
+        $this->initDotEnv();
 
+    }
+
+    protected function initDotEnv():void
+    {
+        $dotenv = \Dotenv\Dotenv::createImmutable(ROOT);
+
+        $dotenv->safeLoad();
     }
 
     /**
