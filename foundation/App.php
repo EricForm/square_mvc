@@ -2,10 +2,11 @@
 
 namespace SquareMvc\Foundation;
 
+use SquareMvc\Foundation\Router\Router;
+
 class App
 {
-
-
+    protected Router $router;
 
     /**
      * App constructor.
@@ -14,6 +15,10 @@ class App
     public function __construct()
     {
         $this->initDotEnv();
+
+        $this->router = new Router(require ROOT . DIRECTORY_SEPARATOR .'app'. DIRECTORY_SEPARATOR .'routes.php');
+
+        //var_dump($this->router);
 
     }
 
@@ -29,6 +34,6 @@ class App
      */
     public function render(): void
     {
-        echo 'Hello World';
+        $this->router->getInstance();
     }
 }
