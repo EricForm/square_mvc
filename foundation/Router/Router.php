@@ -4,6 +4,7 @@
 namespace SquareMvc\Foundation\Router;
 
 
+use SquareMvc\Foundation\Exceptions\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
@@ -28,7 +29,11 @@ class Router
         $this->provisionRoutes($routes);
         $this->makeRequestContext();
 
-        [$this->controller, $this->method] = $this->urlMatching();
+        try {
+            [$this->controller, $this->method] = $this->urlMatching();
+        } catch (\Exception) {
+            HttpException::render();
+        }
     }
 
     /**
