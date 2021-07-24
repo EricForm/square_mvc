@@ -4,6 +4,7 @@ namespace SquareMvc\Foundation;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use SquareMvc\Foundation\Exceptions\HttpException;
 use SquareMvc\Foundation\Router\Router;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -27,10 +28,9 @@ class App
 
         $this->initSession();
 
+        $this->initDatabase();
+
         $this->router = new Router(require ROOT . DIRECTORY_SEPARATOR .'app'. DIRECTORY_SEPARATOR .'routes.php');
-
-        //var_dump($this->router);
-
     }
 
     protected function initDotEnv():void
@@ -65,6 +65,21 @@ class App
     {
         $length = Config::get('hashing.csrf_token_length');
         return bin2hex(random_bytes($length));
+    }
+
+    protected function initDatabase(): void
+    {
+        date_default_timezone_set('Europe/Paris');
+        $capsule = new Capsule();
+        $capsule->addConnection([
+            'driver'   => Config::get('database.driver'),
+            'host'     => Config::get('database.host'),
+            'database' => Config::get('database.name'),
+            'username' => Config::get('database.username'),
+            'password' => Config::get('database.password'),
+        ]);
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
     }
 
     public function render(): void

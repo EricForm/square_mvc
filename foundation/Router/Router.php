@@ -21,7 +21,6 @@ class Router
     protected string $controller;
     protected string $method;
 
-
     /**
      * Router constructor.
      * @param array $routes
