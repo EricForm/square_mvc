@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Faker\Factory;
 use SquareMvc\Foundation\AbstractController;
+use SquareMvc\Foundation\View;
 
 class BaseController extends AbstractController
 {
@@ -11,6 +12,8 @@ class BaseController extends AbstractController
     {
         $faker = Factory::create();
 
-        echo "<h1>Laissez-moi devinez! Vous vivez à $faker->city?</h1>";
+        View::render('index', [
+            'city' => $faker->city,
+        ]);
     }
 }

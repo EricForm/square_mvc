@@ -27,6 +27,12 @@ class Route
         return static::make($uri, $action, $httpMethod);
     }
 
+    /**
+     * @param string $uri
+     * @param array $action
+     * @param string $httpMethod
+     * @return SymfonyRoute
+     */
     protected static function make(string $uri, array $action, string $httpMethod): SymfonyRoute
     {
         [$controller, $method] = $action;
