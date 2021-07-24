@@ -4,8 +4,10 @@
 namespace SquareMvc\Foundation\Router;
 
 
+use JetBrains\PhpStorm\Pure;
 use SquareMvc\Foundation\Exceptions\HttpException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -83,5 +85,25 @@ class Router
                 unset($this->params[$key]);
             }
         }
+    }
+
+    /**
+     * @return UrlGenerator
+     */
+    #[Pure]
+    public function getGenerator(): UrlGenerator
+    {
+        return new UrlGenerator($this->routes, $this->context);
+    }
+
+    /**
+     * @param string $name
+     * @param array $data
+     * @return string
+     */
+    public static function get(string $name, array $data = []): string
+    {
+        $generator = $GLOBALS['app']->getGenerator();
+        return $generator->generate($name, $data);
     }
 }

@@ -2,8 +2,10 @@
 
 namespace SquareMvc\Foundation;
 
+use JetBrains\PhpStorm\Pure;
 use SquareMvc\Foundation\Exceptions\HttpException;
 use SquareMvc\Foundation\Router\Router;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class App
 {
@@ -58,5 +60,12 @@ class App
         Session::resetFlash();
     }
 
-
+    /**
+     * @return UrlGenerator
+     */
+    #[Pure]
+    public function getGenerator(): UrlGenerator
+    {
+        return $this->router->getGenerator();
+    }
 }
