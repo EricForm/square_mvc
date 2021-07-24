@@ -21,6 +21,8 @@ class App
             $this->initProductionExceptionHandler();
         }
 
+        $this->initSession();
+
         $this->router = new Router(require ROOT . DIRECTORY_SEPARATOR .'app'. DIRECTORY_SEPARATOR .'routes.php');
 
         //var_dump($this->router);
@@ -41,12 +43,19 @@ class App
         );
     }
 
+    protected function initSession(): void
+    {
+        Session::init();
+    }
+
     /**
      * Render
      */
     public function render(): void
     {
         $this->router->getInstance();
+
+        Session::resetFlash();
     }
 
 
