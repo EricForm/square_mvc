@@ -2,6 +2,7 @@
 
 namespace SquareMvc\Foundation;
 
+use Exception;
 use JetBrains\PhpStorm\Pure;
 use SquareMvc\Foundation\Exceptions\HttpException;
 use SquareMvc\Foundation\Router\Router;
@@ -14,6 +15,7 @@ class App
     /**
      * App constructor.
      * Init components (BDD, routes, sessions, PHP dotenv...)
+     * @throws Exception
      */
     public function __construct()
     {
@@ -45,14 +47,26 @@ class App
         );
     }
 
+    /**
+     * @throws Exception
+     */
     protected function initSession(): void
     {
         Session::init();
+
+        Session::add('_token', Session::get('_token') ?? $this->generateCsrfToken());
     }
 
     /**
-     * Render
+     * @return string
+     * @throws Exception
      */
+    protected function generateCsrfToken(): string
+    {
+        $length = Config::get('hashing.csrf_token_length');
+        return bin2hex(random_bytes($length));
+    }
+
     public function render(): void
     {
         $this->router->getInstance();
