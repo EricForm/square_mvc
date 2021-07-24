@@ -17,7 +17,7 @@ class App
     {
         $this->initDotEnv();
 
-        if(env('APP_ENV', 'production') === 'production') {
+        if(Config::get('app.env') === 'production') {
             $this->initProductionExceptionHandler();
         }
 
