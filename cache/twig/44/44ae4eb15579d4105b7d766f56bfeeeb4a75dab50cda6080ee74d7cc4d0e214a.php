@@ -47,11 +47,6 @@ class __TwigTemplate_1dc31f5a422625fd1435dc74addd5f84037bd2acb282c50172a418920fc
         // line 10
         echo twig_escape_filter($this->env, ($context["city"] ?? null), "html", null, true);
         echo "?</h1>
-
-    ";
-        // line 12
-        echo csrf_field();
-        echo "
 </body>
 </html>";
     }
@@ -68,7 +63,7 @@ class __TwigTemplate_1dc31f5a422625fd1435dc74addd5f84037bd2acb282c50172a418920fc
 
     public function getDebugInfo()
     {
-        return array (  53 => 12,  48 => 10,  37 => 1,);
+        return array (  48 => 10,  37 => 1,);
     }
 
     public function getSourceContext()
