@@ -13,6 +13,9 @@
         "psr-4": {
             "SquareMvc\\Foundation\\": "./foundation",
             "App\\": "./app"
-        }
+        },
+        "files": [
+            "./functions/twig.php"
+        ]
     }
 }

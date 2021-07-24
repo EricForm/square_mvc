@@ -69,7 +69,8 @@ class App
 
     protected function initDatabase(): void
     {
-        date_default_timezone_set('Europe/Paris');
+        date_default_timezone_set(Config::get('app.timezone'));
+
         $capsule = new Capsule();
         $capsule->addConnection([
             'driver'   => Config::get('database.driver'),
